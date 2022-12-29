@@ -80,4 +80,9 @@ Environment variables are variables that the server needs to run our application
             DB_PASSWORD <- password(************************[press show])
             DB_HOST <- host(polls-do-user-13193235-0.b.db.ondigitalocean.com)
             DB_PORT <- port(25060)
-        
+
+Explanation
+
+    In digital ocean there's 2 main processes that need to be completed in order to deploy out app.
+    1. Build - configuring our app inside the Digital Ocean's Servers (allocating space for example etc.)
+    2. Deploy - Running our app 
