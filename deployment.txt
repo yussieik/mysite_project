@@ -51,3 +51,33 @@ Environment variables are variables that the server needs to run our application
 
 
 4. Using Digital Ocean for deployment
+
+    - Add the project to GitHub (WITHOUT .env AND Virtual Enviroment)
+    - Go to cloud.digitalocean.com and register (best to do so with the GitHub account)
+    - Once registered, go to cloud.digitalocean.com and open APPS (under manage)
+    - Click on Add App 
+    - Connect to the GIThub repository and press continue until finished
+    
+    ENVIRONMENT VARIABLES
+        - Go to Settings-> Components (Application) -> Environment Variables
+        - Add to the Environment Variables (copy from the .env file)
+            DEBUG = False
+            SECRET_KEY = django-insecure-!2xnx697zygxqedvh(3lti94kcp%3=t%5fozatfpxh&+9lede8
+
+        Database 
+        - Create database on Digital Ocean 
+        - Go to Databases(under Manage)
+        - Create database cluster
+        - Choose a datacenter region -> Europe/Frankfurt
+        - Choose a database engine -> PostgreSQL
+        - Click on Create Database Cluster
+
+        - Go to Overview -> CONNECTION DETAILS
+        - Copy values from CONNECTION DETAILS to App Enviroment Variables
+
+            DB_NAME <- database(defaultdb)
+            DB_USER <- username(doadmin)
+            DB_PASSWORD <- password(************************[press show])
+            DB_HOST <- host(polls-do-user-13193235-0.b.db.ondigitalocean.com)
+            DB_PORT <- port(25060)
+        
