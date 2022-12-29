@@ -1,0 +1,93 @@
+1) Create project >>> django-admin startproject mysite
+2) >>> cd mysite
+3) Create application >>> python manage.py startapp polls
+4) mysite.settings.py, added to INSTALLED_APPS "polls"
+5) polls.views.py, created first view - homepage
+6) mysite.urls added polls.homepage view url , path("homepage/", homepage)
+7) Create templates folder inside polls
+8) Create homepage.html inside the polls.templates folder
+
+Useful commands:
+    - python manage.py runserver (Run server in browser)
+
+
+Models
+    PostgreSQL
+    1) create database (i.e polls)
+    2) mysite.settings.py -> change DATABASES
+                                                DATABASES = {
+                                            'default': {
+                                                'ENGINE': 'django.db.backends.postgresql',
+                                                'NAME': '<db_name>',
+                                                'USER': '<db_username>',
+                                                'PASSWORD': '<password>',
+                                                'HOST': '<db_hostname_or_ip>',
+                                                'PORT': '<db_port>',
+                                            }
+                                        }
+    3) >>> python manage.py migrate
+
+
+
+Admin page
+    - create superuser >>> python manage.py createsuperuser
+    - enter /admin
+    - in polls.admin.py, for each model >>> admin.site.register(<our model>)...
+    - in /admin page, add/update/remove model objects
+    - in models.py, add __str__ for better representation of the objects
+
+
+
+Forms 
+    - create a forms.py inside the app folder
+    - in forms.py >> from django import forms
+    - create forms ...
+    - in views.py >> from .forms import <FromName>
+    - in specific view, example post_details. Create CommentForm instance >> comment_form = CommentForm()
+    - pass comment_form into context. >> context = {'post': post, 'form': comment_form}
+    - in html, post.html. use {{form}} to get the form fields. 
+
+
+
+Authentication 
+    - in urls.py
+        from django.contrib.auth.views import (
+            LoginView, 
+            LogoutView, 
+            PasswordResetView, 
+            PasswordResetDoneView,
+            PasswordResetConfirmView,
+            PasswordResetCompleteView
+        )
+    
+    - in templates/registration 
+        - login.html
+        - password_reset_complete.html
+        - password_reset_confirm.html
+        - password_reset_done.html
+        - password_reset_email.html
+        - password_reset_form.html
+        - signup.html
+
+    - Example for login.html
+
+        {% extends 'base.html' %}
+
+        {% block content %}
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form }}
+                <button type='submit'>
+                    Login
+                </button>
+            </form>
+
+        {% endblock content %}
+
+
+
+Signup page
+
+    - in forms.py, create a form for signing up new users (model = User)
+    - in views.py, create a CreateView with the new form 

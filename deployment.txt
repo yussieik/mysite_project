@@ -1,0 +1,53 @@
+1. Prepare static files for deployment
+    - Prepare a static folder OUTSIDE any application folders (static next to manage.py)
+    - in settings.py specify the STATIC_ROOT 
+    - in mysite.urls, specify the url for all the static_files
+
+Explanation:    
+In settings.py, IN Production DEBUG = True, IN Deployment DEBUG = False
+
+
+2. set up a virtual environment enviroment for the webserver
+    - activate virtual enviroment (on mac. source venv/bin/activate)
+                                  (on windowns. venv/Scripts/activate) activate.bat / activate.ps1
+    - pip install django-environ
+    - pip freeze > requirements.txt
+    - in settings.py, import environ
+    - create .env file
+    - add the .env to .gitignore (.env should be safe inside)
+    - inside the .env file, specify the environment variables
+        template
+
+            DEBUG=True
+            SECRET_KEY='django-insecure-!2xnx697zygxqedvh(3lti94kcp%3=t%5fozatfpxh&+9lede8'
+
+    - in settings.py, add
+
+            env = environ.Env(
+            # set casting, default value
+            DEBUG=(bool, False)
+        )
+
+        environ.Env.read_env(os.path.join(BASE_DIR, '.env')) <- read the .env file
+
+        DEBUG = env('DEBUG') <- environment variable
+        SECRET_KEY = env('SECRET_KEY') <- environment variable
+        DB_NAME='polls' <- environment database variable (copy values from DATABASES in settings.py)
+        DB_USER='yussiroz' <- environment database variable
+        DB_PASSWORD='cluster' <- environment database variable
+        DB_HOST='localhost' <- environment database variable
+        DB_PORT='5432' <- environment database variable
+
+Explanation
+Environment variables are variables that the server needs to run our application
+- variables from the settings.py that change (like DEBUG)
+
+3. Using whitenoise to prepare the static files for the server
+    - pip install whitenoise
+    - update the requirements.txt file, >> pip freeze > requirements.txt
+    - python manage.py collectstatic 
+    - Add "whitenoise.middleware.WhiteNoiseMiddleware" to MIDDLEWARE
+    - Add "whitenoise.runserver_nostatic" to INSTALLED_APPS
+
+
+4. Using Digital Ocean for deployment

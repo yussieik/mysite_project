@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{%block content%}
+    <h1> Homepage </h1>
+    {% for post in posts %}
+    <p>
+        {{post.title}} 
+        <br>
+        {{post.date_created}} 
+    </p>
+    {% endfor %}
+    <br>
+    {{time}}
+{%endblock content%}

@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{%block content%}
+    <p>
+    <b>{{post.title}}</b>
+    </p>
+    <p>
+    {{post.text}}
+    </p>
+    <p>
+    {{post.date_created}}
+    </p>
+    <p>
+    {{post.author}}
+    </p>
+    <h3>Comments</h3>
+    {%for comment in comments%}
+    <br>
+    {{comment.comment}}
+    <br>
+    {%endfor%}
+
+    <form method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <button type="submit"> Submit </button>
+    </form>
+{%endblock content%}
